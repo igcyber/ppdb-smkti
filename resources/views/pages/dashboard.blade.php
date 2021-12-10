@@ -30,7 +30,7 @@
                     <p>Daftar Ulang: 8</p>
                 </div>
                 <div class="icon">
-                <i class="ion ion-person-add"></i>
+                <i class="ion ion-mic-a"></i>
                 </div>
                 <a href="" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
             </div>
@@ -40,14 +40,14 @@
                 <!-- small box -->
                 <div class="small-box bg-yellow">
                     <div class="inner">
-                        <h3>DKV</h3>
+                        <h3>BDP</h3>
     
                         <p>Pendaftar: 10</p>
           
                         <p>Daftar Ulang: 8</p>
                     </div>
                     <div class="icon">
-                    <i class="ion ion-person-add"></i>
+                    <i class="ion ion-videocamera"></i>
                     </div>
                     <a href="" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
             </div>
@@ -57,14 +57,14 @@
                 <!-- small box -->
                 <div class="small-box bg-grey-700">
                     <div class="inner">
-                        <h3>DKV</h3>
+                        <h3>TJKT</h3>
     
                         <p>Pendaftar: 10</p>
           
                         <p>Daftar Ulang: 8</p>
                     </div>
                     <div class="icon">
-                    <i class="ion ion-person-add"></i>
+                    <i class="ion ion-connection-bars"></i>
                     </div>
                     <a href="" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
             </div>
@@ -74,14 +74,14 @@
                 <!-- small box -->
                 <div class="small-box bg-green">
                     <div class="inner">
-                        <h3>DKV</h3>
+                        <h3>PPLG</h3>
     
                         <p>Pendaftar: 10</p>
           
                         <p>Daftar Ulang: 8</p>
                     </div>
                     <div class="icon">
-                    <i class="ion ion-person-add"></i>
+                    <i class="ion ion-code"></i>
                     </div>
                     <a href="" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
             </div>
@@ -91,14 +91,14 @@
                 <!-- small box -->
                 <div class="small-box bg-blue">
                     <div class="inner">
-                        <h3>DKV</h3>
+                        <h3>MPLB</h3>
     
                         <p>Pendaftar: 10</p>
           
                         <p>Daftar Ulang: 8</p>
                     </div>
                     <div class="icon">
-                    <i class="ion ion-person-add"></i>
+                    <i class="ion ion-briefcase"></i>
                     </div>
                     <a href="" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
             </div>
@@ -108,14 +108,14 @@
                 <!-- small box -->
                 <div class="small-box bg-red">
                     <div class="inner">
-                        <h3>DKV</h3>
+                        <h3>DM</h3>
     
                         <p>Pendaftar: 10</p>
           
                         <p>Daftar Ulang: 8</p>
                     </div>
                     <div class="icon">
-                    <i class="ion ion-person-add"></i>
+                    <i class="ion ion-bag"></i>
                     </div>
                     <a href="" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
             </div>
