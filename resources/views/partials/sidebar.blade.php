@@ -26,8 +26,8 @@
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
 
-        <li class="active">
-            <a href="pages/widgets.html">
+        <li>
+            <a href="{{ url('/') }}">
               <i class="fa fa-th"></i> <span>Dashboard</span>
             </a>
           </li>
@@ -41,7 +41,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li class="active"><a href="index.html"><i class="fa fa-circle-o"></i>Pendaftar Awal</a></li>
+            <li class="active"><a href="{{ url('/admin/pendaftar-awal') }}"><i class="fa fa-circle-o"></i>Pendaftar Awal</a></li>
             <li><a href="index2.html"><i class="fa fa-circle-o"></i>Pendaftar Ulang</a></li>
           </ul>
         </li>

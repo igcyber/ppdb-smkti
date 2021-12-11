@@ -17,6 +17,11 @@ Route::get('/', function () {
     return view('pages.dashboard');
 });
 
+
+Route::get('/admin/pendaftar-awal', function(){
+    return view('pages.pendaftar_awal');
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
