@@ -2,7 +2,7 @@
     <!-- Logo -->
     <a href="{{ asset('assets/images/logo.png') }}" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>A</b>LT</span>
+      <span class="logo-mini"><b>SMK</b>TIA</span>
       <!-- logo for regular state and mobile devices -->
       <span class="logo-lg"><b>SMKTI</b>AIRLANGGA</span>
     </a>
