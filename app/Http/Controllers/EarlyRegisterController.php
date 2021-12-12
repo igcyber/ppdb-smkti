@@ -59,4 +59,15 @@ class EarlyRegisterController extends Controller
         $pendaftar->status = $request->status;
         $pendaftar->save();
     }
+
+    public function form()
+    {
+        return view('pages.form_daftar');
+    }
+
+    public function register(Request $request)
+    {
+        EarlyRegister::create($request->all());
+        return redirect()->route('siswa.pendaftar')->with('success', 'Terima Kasih Telah Mendaftar, Salam SMK Bisa');
+    }
 }
