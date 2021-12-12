@@ -6,6 +6,8 @@
     <title>SMKS TI Airlangga | Dashboard PPDB</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Bootstrap 3.3.7 -->
     <link rel="stylesheet" href="{{ asset('assets/bower_components/bootstrap/dist/css/bootstrap.min.css')}}">
     <!-- Font Awesome -->
@@ -15,6 +17,7 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('assets/dist/css/AdminLTE.min.css')}}">
     {{-- Favicon --}}
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/images/logo_smktia.png')}}">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
         folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="{{ asset('assets/dist/css/skins/_all-skins.min.css')}}">
@@ -44,8 +47,7 @@
     @yield('content')
 
     <footer class="main-footer">
-        <strong>Copyright &copy; 2021 <a href="https://smkti.net">SMKS TI Airlangga</a>.</strong> All rights
-        reserved.
+        <strong>Hak Cipta &copy; 2021 <a href="https://smkti.net" target="_blank">SMKS TI Airlangga Samarinda</a>.</strong>
     </footer>
 </div>
 <!-- ./wrapper -->
