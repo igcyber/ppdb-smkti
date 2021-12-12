@@ -15,7 +15,7 @@
         <li class="header">MAIN NAVIGATION</li>
 
         <li>
-            <a href="{{ url('/') }}">
+            <a href="{{ route('home') }}">
               <i class="fa fa-th"></i> <span>Dashboard</span>
             </a>
           </li>

@@ -17,11 +17,18 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-
-Route::get('/admin/pendaftar-awal', function(){
-    return view('pages.pendaftar_awal');
-});
-
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/admin/pendaftar-awal', 'EarlyRegisterController@index')->name('index.pendaftar');
+
+Route::post('/admin/pendaftar-awal/simpan', 'EarlyRegisterController@store')->name('store.pendaftar');
+
+Route::get('/admin/pendaftar-awal/{id}', 'EarlyRegisterController@delete')->name('delete.pendaftar');
+
+Route::get('/changeStatus', 'EarlyRegisterController@change')->name('changeStatus');
+
+
+
+
