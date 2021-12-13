@@ -15,6 +15,7 @@ class CreateEarlyRegistersTable extends Migration
     {
         Schema::create('early_registers', function (Blueprint $table) {
             $table->id();
+            $table->string('token',100);
             $table->string('nm_student',100);
             $table->string('sch_student',50);
             $table->string('mjr_student_ft', 50);

@@ -130,55 +130,92 @@
             <div class="row">
                 <div class="col-xs-12">
                     <!-- general form elements -->
+                    {{-- @error('nm_student')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror --}}
+{{-- 
+                    @if ($errors->any())
+                        @foreach ($errors->all() as $error)
+                            <div class="alert alert-danger" role="alert">
+                                {{$error}}
+                            </div>
+                        @endforeach
+                    @endif --}}
+                    
                     <div class="box box-primary">
                         <div class="box-header with-border">
-                        <h3 class="box-title">Tambah Pendaftar</h3>
+                            <h3 class="box-title">Tambah Pendaftar</h3>
                         </div>
                        
                         <!-- form start -->
                         <form action="{{ route('store.pendaftar') }}" method="POST">
                             @csrf
                             <div class="box-body">
+                                
                                 <div class="form-group col-md-6">
-                                    <label for="nameInput">Nama Siswa</label>
-                                    <input type="text" class="form-control @error('nm_student') is-invalid @enderror" name="nm_student" id="nameInput" placeholder="Isi Nama Lengkap Siswa">
+                                    <label for="nameInput" >Nama Siswa</label>
+                                    <span  class="text-danger">
+                                         @error('nm_student')  (  {{$message}}  )@enderror
+                                    </span>
+                                    <input type="text" class="form-control"   name="nm_student" id="nameInput" placeholder="Isi Nama Lengkap Siswa">
                                 </div>
+                             
                                 <div class="form-group col-md-6">
                                     <label for="sekolahInput">Asal Sekolah</label>
-                                    <input type="text" class="form-control @error('sch_student') is-invalid @enderror" name="sch_student" id="sekolahInput" placeholder="Isikan Asal Sekolah Siswa">
+                                    <span  class="text-danger">
+                                        @error('sch_student')  (  {{$message}}  )@enderror
+                                   </span>
+                                    <input type="text" class="form-control" name="sch_student" id="sekolahInput" placeholder="Isikan Asal Sekolah Siswa">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="noInput">No. HP Siswa</label>
-                                    <input type="number" class="form-control @error('phn_student') is-invalid @enderror" name="phn_student" id="noInput" placeholder="Isikan No. HP Siswa">
+                                    <span  class="text-danger">
+                                        @error('phn_student')  (  {{$message}}  )@enderror
+                                   </span>
+                                    <input type="number" class="form-control" name="phn_student" id="noInput" placeholder="Isikan No. HP Siswa">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="noInputParent">No. HP Orang Tua/Wali</label>
-                                    <input type="number" class="form-control @error('phn_parent') is-invalid @enderror" name="phn_parent" id="noInputParent" placeholder="Isikan No. HP Orang Tua / Wali">
+                                    <span  class="text-danger">
+                                        @error('phn_parent')  (  {{$message}}  )@enderror
+                                   </span>
+                                    <input type="number" class="form-control" name="phn_parent" id="noInputParent" placeholder="Isikan No. HP Orang Tua / Wali">
                                 </div>
                                 <div class="form-group col-md-12">
                                     <label for="alamatInput">Alamat</label>
-                                    <textarea class="form-control @error('addrs_student') is-invalid @enderror" rows="3" id="alamatInput" name="addrs_student" placeholder="Isikan Alamat Siswa"></textarea>
+                                    <span  class="text-danger">
+                                        @error('addrs_student')  (  {{$message}}  )@enderror
+                                   </span>
+                                    <textarea class="form-control" rows="3" id="alamatInput" name="addrs_student" placeholder="Isikan Alamat Siswa"></textarea>
                                 </div>
                                 <div class="form-group col-md-12">
                                     <label>Pilih Jurusan Pertama</label>
-                                    <select class="form-control @error('mjr_student_ft') is-invalid @enderror" name="mjr_student_ft">
-                                      <option value="DKV">DKV | Desain Komunikasi Visual</option>
-                                      <option value="Broadcasting">BDP | Brodcasting & Perfilman</option>
-                                      <option value="TJKT">TJKT | Teknik Jaringan Komputer Telekomunikasi</option>
-                                      <option value="Pemasaran">PPLG | Perancangan Perangkat Lunak & Gim</option>
-                                      <option value="MPLB">MPLB | Manajamen Perkantoran Lembaga Bisnis </option>
-                                      <option value="Pemasaran">DM | Digital Marketing</option>
+                                    <span  class="text-danger">
+                                        @error('mjr_student_ft')  (  {{$message}}  )@enderror
+                                    </span>
+                                    <select class="form-control" name="mjr_student_ft">
+                                        <option value="" selected>--- Pilih Jurusan ---</option>
+                                        <option value="DKV">DKV | Desain Komunikasi Visual</option>
+                                        <option value="Broadcasting">BDP | Brodcasting & Perfilman</option>
+                                        <option value="TJKT">TJKT | Teknik Jaringan Komputer Telekomunikasi</option>
+                                        <option value="Pemasaran">PPLG | Perancangan Perangkat Lunak & Gim</option>
+                                        <option value="MPLB">MPLB | Manajamen Perkantoran Lembaga Bisnis </option>
+                                        <option value="Pemasaran">DM | Digital Marketing</option>
                                     </select>
                                 </div>
                                 <div class="form-group col-md-12">
                                     <label>Pilih Jurusan Kedua</label>
-                                    <select class="form-control @error('mjr_student_snd') is-invalid @enderror" name="mjr_student_snd">
-                                      <option value="DKV">DKV | Desain Komunikasi Visual</option>
-                                      <option value="Broadcasting">BDP | Brodcasting & Perfilman</option>
-                                      <option value="TJKT">TJKT | Teknik Jaringan Komputer Teknologi</option>
-                                      <option value="Pemasaran">PPLG | Perancangan Perangkat Lunak & Gim</option>
-                                      <option value="MPLB">MPLB | Manajamen Perkantoran Lembaga Bisnis </option>
-                                      <option value="Pemasaran">DM | Digital Marketing</option>
+                                    <span  class="text-danger">
+                                        @error('mjr_student_snd')  (  {{$message}}  )@enderror
+                                    </span>
+                                    <select class="form-control" name="mjr_student_snd">
+                                        <option value="" selected>--- Pilih Jurusan ---</option>
+                                        <option value="DKV">DKV | Desain Komunikasi Visual</option>
+                                        <option value="Broadcasting">BDP | Brodcasting & Perfilman</option>
+                                        <option value="TJKT">TJKT | Teknik Jaringan Komputer Teknologi</option>
+                                        <option value="Pemasaran">PPLG | Perancangan Perangkat Lunak & Gim</option>
+                                        <option value="MPLB">MPLB | Manajamen Perkantoran Lembaga Bisnis </option>
+                                        <option value="Pemasaran">DM | Digital Marketing</option>
                                     </select>
                                 </div>
                             </div>

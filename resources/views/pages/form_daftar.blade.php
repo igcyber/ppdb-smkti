@@ -45,28 +45,52 @@
     @endif
     <form action="{{ route('siswa.pendaftar') }}" method="POST">
         @csrf
+
+        <p  class="text-danger">
+          @error('nm_student'){{$message}}@enderror
+        </p>
       <div class="form-group has-feedback">
-        <input type="text" class="form-control @error('nm_student') is-invalid @enderror" placeholder="Nama Lengkap Anda" name="nm_student">
+        <input type="text" class="form-control" placeholder="Nama Lengkap Anda" name="nm_student">
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
       </div>
+
+      <p  class="text-danger">
+        @error('sch_student'){{$message}}@enderror
+      </p>
       <div class="form-group has-feedback">
-        <input type="text" class="form-control @error('sch_student') is-invalid @enderror" name="sch_student" placeholder="Asal Sekolah(SMP) Anda">
+        <input type="text" class="form-control" name="sch_student" placeholder="Asal Sekolah(SMP) Anda">
         <span class="glyphicon glyphicon-education form-control-feedback"></span>
       </div>
+
+      <p  class="text-danger">
+        @error('phn_student'){{$message}}@enderror
+      </p>
       <div class="form-group has-feedback">
-        <input type="number" name="phn_student" class="form-control @error('phn_student') is-invalid @enderror" placeholder="No.Handphone Aktif Anda">
+        <input type="number" name="phn_student" class="form-control" placeholder="No.Handphone Aktif Anda">
         <span class="glyphicon glyphicon-phone form-control-feedback"></span>
       </div>
+
+      <p  class="text-danger">
+        @error('phn_parent'){{$message}}@enderror
+      </p>
       <div class="form-group has-feedback">
-        <input type="number" name="phn_parent" class="form-control @error('phn_parent') is-invalid @enderror" placeholder="No.Handphone Aktif Orang Tua/Wali Anda">
+        <input type="number" name="phn_parent" class="form-control" placeholder="No.Handphone Aktif Orang Tua/Wali Anda">
         <span class="glyphicon glyphicon-phone form-control-feedback"></span>
       </div>
+
+      <p  class="text-danger">
+        @error('addrs_student'){{$message}}@enderror
+      </p>
       <div class="form-group has-feedback">
-        <textarea name="addrs_student" class="form-control  @error('addrs_student') is-invalid @enderror" cols="30" rows="5" placeholder="Alamat Lengkap Anda"></textarea>
+        <textarea name="addrs_student" class="form-control" cols="30" rows="5" placeholder="Alamat Lengkap Anda"></textarea>
         <span class="glyphicon glyphicon-home form-control-feedback"></span>
       </div>
+
+      <p  class="text-danger">
+        @error('mjr_student_ft'){{$message}}@enderror
+      </p>
       <div class="form-group has-feedback">
-        <select class="form-control @error('mjr_student_fr') is-invalid @enderror" name="mjr_student_ft">
+        <select class="form-control" name="mjr_student_ft">
             <option value="" selected>Pilihan Jurusan Pertama</option>
             <option value="DKV">DKV | Desain Komunikasi Visual</option>
             <option value="Broadcasting">BDP | Brodcasting & Perfilman</option>
@@ -76,8 +100,12 @@
             <option value="Pemasaran">DM | Digital Marketing</option>
         </select>
       </div>
+
+      <p  class="text-danger">
+        @error('mjr_student_snd'){{$message}}@enderror
+      </p>
       <div class="form-group has-feedback">
-        <select class="form-control @error('mjr_student_snd') is-invalid @enderror" name="mjr_student_snd">
+        <select class="form-control" name="mjr_student_snd">
             <option value="" selected>Pilihan Jurusan Kedua</option>
             <option value="DKV">DKV | Desain Komunikasi Visual</option>
             <option value="Broadcasting">BDP | Brodcasting & Perfilman</option>
