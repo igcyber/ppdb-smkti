@@ -111,8 +111,9 @@
                                         <td>
                                             <input data-id="{{$row->id}}" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Sudah" data-off="Belum" {{ $row->status ? 'checked' : ''}}>
                                         </td>
+                                        {{-- {{route('delete.pendaftar', $row->id)}} --}}
                                         <td>
-                                            <a href="{{route('delete.pendaftar', $row->id)}}" class="btn btn-danger btn-sm delete" data-id="" data-toggle="tooltip" data-placement="bottom" title="Hapus">
+                                            <a href="#" class="btn btn-danger btn-sm delete delete-btn" data-id="{{$row->id}}" data-toggle="tooltip" data-placement="bottom" title="Hapus">
                                                 <i class="fa fa-trash"></i>
                                             </a>
                                         </td>
@@ -129,19 +130,7 @@
 
             <div class="row">
                 <div class="col-xs-12">
-                    <!-- general form elements -->
-                    {{-- @error('nm_student')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror --}}
-{{-- 
-                    @if ($errors->any())
-                        @foreach ($errors->all() as $error)
-                            <div class="alert alert-danger" role="alert">
-                                {{$error}}
-                            </div>
-                        @endforeach
-                    @endif --}}
-                    
+                         
                     <div class="box box-primary">
                         <div class="box-header with-border">
                             <h3 class="box-title">Tambah Pendaftar</h3>
@@ -157,7 +146,7 @@
                                     <span  class="text-danger">
                                          @error('nm_student')  (  {{$message}}  )@enderror
                                     </span>
-                                    <input type="text" class="form-control"   name="nm_student" id="nameInput" placeholder="Isi Nama Lengkap Siswa">
+                                    <input type="text" class="form-control" name="nm_student" id="nameInput" placeholder="Isi Nama Lengkap Siswa" value="{{ old('nm_student') }}">
                                 </div>
                              
                                 <div class="form-group col-md-6">
@@ -165,28 +154,28 @@
                                     <span  class="text-danger">
                                         @error('sch_student')  (  {{$message}}  )@enderror
                                    </span>
-                                    <input type="text" class="form-control" name="sch_student" id="sekolahInput" placeholder="Isikan Asal Sekolah Siswa">
+                                    <input type="text" class="form-control" name="sch_student" id="sekolahInput" placeholder="Isikan Asal Sekolah Siswa" value="{{ old('sch_student') }}">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="noInput">No. HP Siswa</label>
                                     <span  class="text-danger">
                                         @error('phn_student')  (  {{$message}}  )@enderror
                                    </span>
-                                    <input type="number" class="form-control" name="phn_student" id="noInput" placeholder="Isikan No. HP Siswa">
+                                    <input type="text" class="form-control" name="phn_student" id="noInput" placeholder="Isikan No. HP Siswa" value="{{ old('phn_student') }}">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="noInputParent">No. HP Orang Tua/Wali</label>
                                     <span  class="text-danger">
                                         @error('phn_parent')  (  {{$message}}  )@enderror
                                    </span>
-                                    <input type="number" class="form-control" name="phn_parent" id="noInputParent" placeholder="Isikan No. HP Orang Tua / Wali">
+                                    <input type="text" class="form-control" name="phn_parent" id="noInputParent" placeholder="Isikan No. HP Orang Tua / Wali" value="{{ old('phn_parent') }}">
                                 </div>
                                 <div class="form-group col-md-12">
                                     <label for="alamatInput">Alamat</label>
                                     <span  class="text-danger">
                                         @error('addrs_student')  (  {{$message}}  )@enderror
                                    </span>
-                                    <textarea class="form-control" rows="3" id="alamatInput" name="addrs_student" placeholder="Isikan Alamat Siswa"></textarea>
+                                    <textarea class="form-control" rows="3" id="alamatInput" name="addrs_student" placeholder="Isikan Alamat Siswa">{{ old('addrs_student') }}</textarea>
                                 </div>
                                 <div class="form-group col-md-12">
                                     <label>Pilih Jurusan Pertama</label>
@@ -218,6 +207,7 @@
                                         <option value="Pemasaran">DM | Digital Marketing</option>
                                     </select>
                                 </div>
+                                <input type="hidden" name="reg_id">
                             </div>
                             <!-- /.box-body -->
                             <div class="box-footer">

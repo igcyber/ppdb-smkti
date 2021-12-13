@@ -6,6 +6,7 @@ use App\EarlyRegister;
 use App\Helpers\Helper;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
 
 class EarlyRegisterController extends Controller
@@ -26,8 +27,8 @@ class EarlyRegisterController extends Controller
             'sch_student' => 'required',
             'mjr_student_ft' => 'required',
             'mjr_student_snd' => 'required',
-            'phn_student' => 'required|numeric|min:11',
-            'phn_parent' => 'required|numeric|min:11',
+            'phn_student' => 'required|regex:/(0)[0-9]/|not_regex:/[a-z]/|min:11',
+            'phn_parent' => 'required|regex:/(0)[0-9]/|not_regex:/[a-z]/|min:11',
             'addrs_student' => 'required',
         ],
         [
@@ -38,18 +39,29 @@ class EarlyRegisterController extends Controller
         'mjr_student_snd.required' => 'Jurusan Kedua Wajib Dipilih', 
 
         'phn_student.required' => 'Nomor Handphone Wajib Diisi',
-        'phn_student.numeric' =>  'Nomor Harus Angka',
+        'phn_student.regex' =>  'Nomor Harus Berupa Angka',
+        'phn_student.not_regex' => 'Format Nomor Salah',
         'phn_student.min' => "Nomor Minimal 11 Digit",
 
         'phn_parent.required' => 'Nomor Handphone Wajib Diisi',
-        'phn_parent.numeric' =>  'Nomor Harus Angka',
-        'phn_parent.min' => "Nomor Minimal 11 Digit",
+        'phn_parent.min' =>  'Nomor Minimal 11 Digit',
+        'phn_parent.regex' => 'Nomor Harus Berupa Angka',
+        'phn_parent.not_regex' => 'Format Nomor Salah',
 
         'addrs_student.required' => "Alamat Lengkap Wajib Diisi",
         ]);
-            
 
-        EarlyRegister::create($request->all());
+         
+
+        $register = EarlyRegister::create($request->all());
+
+        // Tanggal Daftar
+        $date = Carbon::now();
+
+        $register->reg_id = 'PDB'.'-'.$date->format('Y').'-'.$register->id.'-'. str_replace(' ', '', strtoupper(substr($request->nm_student,0,4)));
+
+        $register->save();
+
         return redirect()->route('index.pendaftar')->with('success', 'Data Berhasil Di Tambahkan');
     }
 
