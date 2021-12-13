@@ -56,7 +56,7 @@
                                             Pendaftar
                                         </th>
                                         <th>
-                                            Staus <br>
+                                            Status <br>
                                             <span>Daftar Ulang</span>
                                         </th>
                                         <th>
