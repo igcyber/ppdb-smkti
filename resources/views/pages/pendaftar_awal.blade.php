@@ -55,6 +55,9 @@
                                             Staus <br>
                                             <span>Daftar Ulang</span>
                                         </th>
+                                        <th>
+                                            Pilihan <br>
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -72,7 +75,9 @@
                                             <input data-id="{{$row->id}}" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Sudah" data-off="Belum" {{ $row->status ? 'checked' : ''}}>
                                         </td>
                                         <td>
-                                            <a href="{{route('delete.pendaftar', $row->id)}}">Delete</a>
+                                            <a href="{{route('delete.pendaftar', $row->id)}}" class="btn btn-danger btn-sm delete" data-id="" data-toggle="tooltip" data-placement="bottom" title="Hapus">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -118,8 +123,19 @@
                                     <textarea class="form-control @error('addrs_student') is-invalid @enderror" rows="3" id="alamatInput" name="addrs_student" placeholder="Isikan Alamat Siswa"></textarea>
                                 </div>
                                 <div class="form-group col-md-12">
-                                    <label>Pilih Jurusan</label>
-                                    <select class="form-control @error('mjr_student') is-invalid @enderror" name="mjr_student">
+                                    <label>Pilih Jurusan Pertama</label>
+                                    <select class="form-control @error('mjr_student_ft') is-invalid @enderror" name="mjr_student_ft">
+                                      <option value="DKV">DKV | Desain Komunikasi Visual</option>
+                                      <option value="Broadcasting">BDP | Brodcasting & Perfilman</option>
+                                      <option value="TJKT">TJKT | Teknik Jaringan Komputer Teknologi</option>
+                                      <option value="Pemasaran">PPLG | Perancangan Perangkat Lunak & Gim</option>
+                                      <option value="MPLB">MPLB | Manajamen Perkantoran Lembaga Bisnis </option>
+                                      <option value="Pemasaran">DM | Digital Marketing</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label>Pilih Jurusan Kedua</label>
+                                    <select class="form-control @error('mjr_student_snd') is-invalid @enderror" name="mjr_student_snd">
                                       <option value="DKV">DKV | Desain Komunikasi Visual</option>
                                       <option value="Broadcasting">BDP | Brodcasting & Perfilman</option>
                                       <option value="TJKT">TJKT | Teknik Jaringan Komputer Teknologi</option>

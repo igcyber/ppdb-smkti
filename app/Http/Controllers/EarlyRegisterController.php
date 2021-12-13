@@ -68,6 +68,6 @@ class EarlyRegisterController extends Controller
     public function register(Request $request)
     {
         EarlyRegister::create($request->all());
-        return redirect()->route('siswa.pendaftar')->with('success', 'Terima Kasih Telah Mendaftar, Salam SMK Bisa');
+        return redirect()->route('form')->with('success', 'Terima Kasih Telah Mendaftar, Salam SMK Bisa');
     }
 }

@@ -11,7 +11,8 @@ class EarlyRegister extends Model
     protected $fillable = [
         'nm_student',
         'sch_student',
-        'mjr_student',
+        'mjr_student_ft',
+        'mjr_student_snd',
         'phn_student',
         'phn_parent',
         'addrs_student',
