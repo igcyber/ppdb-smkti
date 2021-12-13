@@ -66,22 +66,22 @@
         <span class="glyphicon glyphicon-home form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <select class="form-control @error('mjr_student') is-invalid @enderror" name="mjr_student_ft">
+        <select class="form-control @error('mjr_student_fr') is-invalid @enderror" name="mjr_student_ft">
             <option value="" selected>Pilihan Jurusan Pertama</option>
             <option value="DKV">DKV | Desain Komunikasi Visual</option>
             <option value="Broadcasting">BDP | Brodcasting & Perfilman</option>
-            <option value="TJKT">TJKT | Teknik Jaringan Komputer Teknologi</option>
+            <option value="TJKT">TJKT | Teknik Jaringan Komputer Telekomunikasi</option>
             <option value="Pemasaran">PPLG | Perancangan Perangkat Lunak & Gim</option>
             <option value="MPLB">MPLB | Manajamen Perkantoran Lembaga Bisnis </option>
             <option value="Pemasaran">DM | Digital Marketing</option>
         </select>
       </div>
       <div class="form-group has-feedback">
-        <select class="form-control @error('mjr_student') is-invalid @enderror" name="mjr_student_ft">
+        <select class="form-control @error('mjr_student_snd') is-invalid @enderror" name="mjr_student_snd">
             <option value="" selected>Pilihan Jurusan Kedua</option>
             <option value="DKV">DKV | Desain Komunikasi Visual</option>
             <option value="Broadcasting">BDP | Brodcasting & Perfilman</option>
-            <option value="TJKT">TJKT | Teknik Jaringan Komputer Teknologi</option>
+            <option value="TJKT">TJKT | Teknik Jaringan Komputer Telekomunikasi</option>
             <option value="Pemasaran">PPLG | Perancangan Perangkat Lunak & Gim</option>
             <option value="MPLB">MPLB | Manajamen Perkantoran Lembaga Bisnis </option>
             <option value="Pemasaran">DM | Digital Marketing</option>
