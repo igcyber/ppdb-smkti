@@ -17,7 +17,8 @@ class CreateEarlyRegistersTable extends Migration
             $table->id();
             $table->string('nm_student',100);
             $table->string('sch_student',50);
-            $table->string('mjr_student', 50);
+            $table->string('mjr_student_ft', 50);
+            $table->string('mjr_student_snd', 50);
             $table->string('phn_student',12);
             $table->string('phn_parent',12);
             $table->string('addrs_student',150);

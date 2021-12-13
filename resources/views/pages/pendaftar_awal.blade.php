@@ -52,27 +52,69 @@
                                             Lengkap
                                         </th>
                                         <th>
+                                            Gelombang <br>
+                                            Pendaftar
+                                        </th>
+                                        <th>
                                             Staus <br>
                                             <span>Daftar Ulang</span>
+                                        </th>
+                                        <th>
+                                            Pilihan <br>
                                         </th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @php($i = 1)
+
+                                    <?php 
+                                        // Date Gelombang Khusus
+                                        $startDateK = date('Y-m-d', strtotime("12/01/2021"));
+                                        $endDateK = date('Y-m-d', strtotime("01/31/2022"));  
+
+                                        // Date Gelombang Pertama
+                                        $startDate1 = date('Y-m-d', strtotime("02/01/2022"));
+                                        $endDate1 = date('Y-m-d', strtotime("03/31/2022")); 
+
+                                        // Date Gelombang Kedua
+                                        $startDate2 = date('Y-m-d', strtotime("04/01/2022"));
+                                        $endDate2 = date('Y-m-d', strtotime("05/31/2022"));
+                                        
+                                        // Date Gelombang Ketiga
+                                        $startDate3 = date('Y-m-d', strtotime("06/01/2022"));
+                                        $endDate3 = date('Y-m-d', strtotime("07/31/2022")); 
+                                    ?>
+
                                     @foreach ($pendaftar as $row)
                                     <tr>
                                         <td>{{$i++}}</td>
                                         <td>{{$row->nm_student}}</td>
                                         <td>{{$row->sch_student}}</td>
-                                        <td>{{$row->mjr_student}}</td>
+                                        <td>{{$row->mjr_student_ft}}|{{$row->mjr_student_snd}}</td>
                                         <td>{{$row->phn_student}}</td>
                                         <td>{{$row->phn_parent}}</td>
                                         <td>{{$row->addrs_student}}</td>
+                                        
+                                        <td>
+                                            @if (($row->created_at >= $startDateK) && ($row->created_at <= $endDateK))
+                                                <span class="label label-warning">Gelombang Khusus</span>
+                                            @elseif(($row->created_at >= $startDate1) && ($row->created_at <= $endDate1))    
+                                                <span class="label label-success">Gelombang Pertama</span> 
+                                            @elseif(($row->created_at >= $startDate2) && ($row->created_at <= $endDate2))
+                                                <span class="label label-primary">Gelombang Kedua</span>
+                                            @elseif(($row->created_at >= $startDate3) && ($row->created_at <= $endDate3))
+                                                <span class="label label-info">Gelombang Ketiga</span>
+                                            @else 
+                                                <span class="label label-danger">Gelombang Sisa</span>
+                                            @endif
+                                        </td>
                                         <td>
                                             <input data-id="{{$row->id}}" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Sudah" data-off="Belum" {{ $row->status ? 'checked' : ''}}>
                                         </td>
                                         <td>
-                                            <a href="{{route('delete.pendaftar', $row->id)}}">Delete</a>
+                                            <a href="{{route('delete.pendaftar', $row->id)}}" class="btn btn-danger btn-sm delete" data-id="" data-toggle="tooltip" data-placement="bottom" title="Hapus">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -118,8 +160,19 @@
                                     <textarea class="form-control @error('addrs_student') is-invalid @enderror" rows="3" id="alamatInput" name="addrs_student" placeholder="Isikan Alamat Siswa"></textarea>
                                 </div>
                                 <div class="form-group col-md-12">
-                                    <label>Pilih Jurusan</label>
-                                    <select class="form-control @error('mjr_student') is-invalid @enderror" name="mjr_student">
+                                    <label>Pilih Jurusan Pertama</label>
+                                    <select class="form-control @error('mjr_student_ft') is-invalid @enderror" name="mjr_student_ft">
+                                      <option value="DKV">DKV | Desain Komunikasi Visual</option>
+                                      <option value="Broadcasting">BDP | Brodcasting & Perfilman</option>
+                                      <option value="TJKT">TJKT | Teknik Jaringan Komputer Telekomunikasi</option>
+                                      <option value="Pemasaran">PPLG | Perancangan Perangkat Lunak & Gim</option>
+                                      <option value="MPLB">MPLB | Manajamen Perkantoran Lembaga Bisnis </option>
+                                      <option value="Pemasaran">DM | Digital Marketing</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label>Pilih Jurusan Kedua</label>
+                                    <select class="form-control @error('mjr_student_snd') is-invalid @enderror" name="mjr_student_snd">
                                       <option value="DKV">DKV | Desain Komunikasi Visual</option>
                                       <option value="Broadcasting">BDP | Brodcasting & Perfilman</option>
                                       <option value="TJKT">TJKT | Teknik Jaringan Komputer Teknologi</option>
