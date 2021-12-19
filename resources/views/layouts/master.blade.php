@@ -27,7 +27,11 @@
     <link rel="stylesheet" href="{{ asset('assets/bower_components/jvectormap/jquery-jvectormap.css')}}">
     <!-- Google Font -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    {{-- Toastr Css --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
     @yield('bootstrap-toggle')
+
    
 </head>
 <body class="skin-blue" data-spy="scroll" data-target="#scrollspy">
@@ -87,26 +91,8 @@
 <script src="{{ asset('assets/dist/js/demo.js')}}"></script>
 {{-- SweetAlert --}}
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+{{-- Toastr --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>
-<script>
-    $('.delete-btn').click( function(){
-        swal({
-            title: "Are you sure?",
-            text: "Once deleted, you will not be able to recover this imaginary file!",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-        })
-        .then((willDelete) => {
-            if (willDelete) {
-                swal("Poof! Your imaginary file has been deleted!", {
-                icon: "success",
-                });
-            } else {
-                swal("Your imaginary file is safe!");
-            }
-        });
-    });
-</script>
 @yield('script')
 </html>

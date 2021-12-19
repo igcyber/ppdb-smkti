@@ -7,14 +7,21 @@ use App\Helpers\Helper;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use App\Exports\RegistrantExport;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Validator;
 
 class EarlyRegisterController extends Controller
 {
     //show all data
-    public function index()
+    public function index(Request $request)
     {
-        $pendaftar = EarlyRegister::all();
+        if($request->has('search')){
+            $pendaftar = EarlyRegister::where('nm_student', 'LIKE', '%' .$request->search. '%')->paginate(5);
+        }else{
+            $pendaftar = EarlyRegister::paginate(5);
+        }
+       
         return view('pages.pendaftar_awal', compact('pendaftar'));
     }
 
@@ -27,8 +34,8 @@ class EarlyRegisterController extends Controller
             'sch_student' => 'required',
             'mjr_student_ft' => 'required',
             'mjr_student_snd' => 'required',
-            'phn_student' => 'required|regex:/(0)[0-9]/|not_regex:/[a-z]/|min:11',
-            'phn_parent' => 'required|regex:/(0)[0-9]/|not_regex:/[a-z]/|min:11',
+            'phn_student' => 'required|regex:/(0)[0-9]/|not_regex:/[a-z]/|min:11|max:13',
+            'phn_parent' => 'required|regex:/(0)[0-9]/|not_regex:/[a-z]/|min:11|max:13',
             'addrs_student' => 'required',
         ],
         [
@@ -42,9 +49,11 @@ class EarlyRegisterController extends Controller
         'phn_student.regex' =>  'Nomor Harus Berupa Angka',
         'phn_student.not_regex' => 'Format Nomor Salah',
         'phn_student.min' => "Nomor Minimal 11 Digit",
+        'phn_student.max' => "Nomor Maksimal 13 Digit",
 
         'phn_parent.required' => 'Nomor Handphone Wajib Diisi',
         'phn_parent.min' =>  'Nomor Minimal 11 Digit',
+        'phn_parent.max' =>  'Nomor Maksimal 13 Digit',
         'phn_parent.regex' => 'Nomor Harus Berupa Angka',
         'phn_parent.not_regex' => 'Format Nomor Salah',
 
@@ -92,8 +101,8 @@ class EarlyRegisterController extends Controller
             'sch_student' => 'required',
             'mjr_student_ft' => 'required',
             'mjr_student_snd' => 'required',
-            'phn_student' => 'required|numeric|min:11',
-            'phn_parent' => 'required|numeric|min:11',
+            'phn_student' => 'required|regex:/(0)[0-9]/|not_regex:/[a-z]/|min:11|max:13',
+            'phn_parent' => 'required|regex:/(0)[0-9]/|not_regex:/[a-z]/|min:11|max:13',
             'addrs_student' => 'required',
         ],
         [
@@ -101,41 +110,40 @@ class EarlyRegisterController extends Controller
         'sch_student.required' => 'Asal Sekolah Wajib Diisi',
 
         'mjr_student_ft.required' => 'Jurusan Pertama Wajib Dipilih',
-        'mjr_student_snd.required' => 'Jurusan Kedua Wajib Dipilih', 
+        'mjr_student_snd.required' => 'Jurusan Kedua Wajib Dipilih',
 
         'phn_student.required' => 'Nomor Handphone Wajib Diisi',
-        'phn_student.numeric' =>  'Nomor Harus Angka',
+        'phn_student.regex' =>  'Nomor Harus Berupa Angka',
+        'phn_student.not_regex' => 'Format Nomor Salah',
         'phn_student.min' => "Nomor Minimal 11 Digit",
+        'phn_student.max' => "Nomor Maksimal 13 Digit",
 
         'phn_parent.required' => 'Nomor Handphone Wajib Diisi',
-        'phn_parent.numeric' =>  'Nomor Harus Angka',
-        'phn_parent.min' => "Nomor Minimal 11 Digit",
+        'phn_parent.min' =>  'Nomor Minimal 11 Digit',
+        'phn_parent.max' =>  'Nomor Maksimal 13 Digit',
+        'phn_parent.regex' => 'Nomor Harus Berupa Angka',
+        'phn_parent.not_regex' => 'Format Nomor Salah',
 
         'addrs_student.required' => "Alamat Lengkap Wajib Diisi",
         ]);
         
-        // EarlyRegister::create($request->all()); 
-        //request store
-        $nm_student = $request->nm_student;
-        $sch_student = $request->sch_student;
-        $mjr_student_ft = $request->mjr_student_ft;
-        $mjr_student_snd = $request->mjr_student_snd;
-        $phn_student = $request->phn_student;
-        $phn_parent = $request->phn_parent;
-        $addrs_student = $request->addrs_student;
-        //Generate Token
-        $generator = Helper::IDGenerator(new EarlyRegister,'token',5,'STI');
-        $khmer = new EarlyRegister;
-        $khmer->token->$generator;
-        $khmer->nm_student->$nm_student;
-        $khmer->sch_student->$sch_student;
-        $khmer->mjr_student_ft->$mjr_student_ft;
-        $khmer->mjr_student_snd->$mjr_student_snd;
-        $khmer->phn_student->$phn_student;
-        $khmer->phn_parent->$phn_parent;
-        $khmer->addrs_student ->$addrs_student;
+        // Ambil semua request
+        $register = EarlyRegister::create($request->all());
 
+        // Tanggal Daftar
+        $date = Carbon::now();
+
+        //Generate Registration Id
+        $register->reg_id = 'PDB'.'-'.$date->format('Y').'-'.$register->id.'-'. str_replace(' ', '', strtoupper(substr($request->nm_student,0,4)));
+
+        //Simpan Registration Id
+        $register->save();
 
         return redirect()->route('form')->with('success', 'Terima Kasih Telah Mendaftar, Salam SMK Bisa');
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(new RegistrantExport, 'dataPendaftarAwal.xlsx');
     }
 }

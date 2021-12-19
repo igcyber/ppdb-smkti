@@ -23,6 +23,8 @@ Route::post('pendaftar-awal/register', 'EarlyRegisterController@register')->name
 
 Route::get('/changeStatus', 'EarlyRegisterController@change')->name('changeStatus');
 
+Route::get('/export-excel', 'EarlyRegisterController@exportExcel')->name('exportExcel');
+
 
 
 

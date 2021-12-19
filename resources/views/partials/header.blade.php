@@ -3,7 +3,7 @@
   <a href="" class="logo">
     <!-- logo for regular state and mobile devices -->
     <span class="logo-lg">
-      <b>SI-PPDB</b>
+      <b>APP-PPDB</b>
     </span>
   </a>
   <!-- Header Navbar: style can be found in header.less -->

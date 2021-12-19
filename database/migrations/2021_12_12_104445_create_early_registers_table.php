@@ -19,11 +19,11 @@ class CreateEarlyRegistersTable extends Migration
             $table->string('sch_student',50);
             $table->string('mjr_student_ft', 50);
             $table->string('mjr_student_snd', 50);
-            $table->string('phn_student',12);
-            $table->string('phn_parent',12);
-            $table->string('addrs_student',150);
+            $table->string('phn_student',13);
+            $table->string('phn_parent',13);
+            $table->text('addrs_student');
             $table->boolean('status')->nullable()->default(0);
-            $table->string('reg_id')->nullable();
+            $table->string('reg_id', 15)->nullable();
             $table->timestamps();
         });
     }

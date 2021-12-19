@@ -18,7 +18,7 @@ class EarlyRegister extends Model
         'phn_parent',
         'addrs_student',
         'status',
-        'reg_id'
+        'reg_id' 
         
     ];
 }

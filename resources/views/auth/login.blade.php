@@ -34,9 +34,12 @@
 </head>
 <body class="hold-transition login-page">
     <div class="login-box">
+        <img src="{{ asset('assets/images/logo_smktia.png')}}" alt="SMKS TI Airlangga" style=" display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 40%;">
         <div class="login-logo">
-            <span><b>SI</b> PPDB</span>
-            <h4>SMKS TI Airlangga Samarinda</h4>
+            <h4>Aplikasi <b>Pendaftaran Peserta Didik Baru</b></h4>
         </div>
         <!-- /.login-logo -->
         <div class="login-box-body">

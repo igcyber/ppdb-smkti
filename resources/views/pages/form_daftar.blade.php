@@ -50,7 +50,7 @@
           @error('nm_student'){{$message}}@enderror
         </p>
       <div class="form-group has-feedback">
-        <input type="text" class="form-control" placeholder="Nama Lengkap Anda" name="nm_student">
+        <input type="text" class="form-control" placeholder="Nama Lengkap Anda" name="nm_student" value="{{ old('nm_student') }}">
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
       </div>
 
@@ -58,7 +58,7 @@
         @error('sch_student'){{$message}}@enderror
       </p>
       <div class="form-group has-feedback">
-        <input type="text" class="form-control" name="sch_student" placeholder="Asal Sekolah(SMP) Anda">
+        <input type="text" class="form-control" name="sch_student" placeholder="Asal Sekolah(SMP) Anda"  value="{{ old('sch_student') }}">
         <span class="glyphicon glyphicon-education form-control-feedback"></span>
       </div>
 
@@ -66,7 +66,7 @@
         @error('phn_student'){{$message}}@enderror
       </p>
       <div class="form-group has-feedback">
-        <input type="number" name="phn_student" class="form-control" placeholder="No.Handphone Aktif Anda">
+        <input type="text" name="phn_student" class="form-control" placeholder="No.Handphone Aktif Anda" value="{{ old('phn_student') }}">
         <span class="glyphicon glyphicon-phone form-control-feedback"></span>
       </div>
 
@@ -74,7 +74,7 @@
         @error('phn_parent'){{$message}}@enderror
       </p>
       <div class="form-group has-feedback">
-        <input type="number" name="phn_parent" class="form-control" placeholder="No.Handphone Aktif Orang Tua/Wali Anda">
+        <input type="text" name="phn_parent" class="form-control" placeholder="No.Handphone Aktif Orang Tua/Wali Anda"  value="{{ old('phn_parent') }}">
         <span class="glyphicon glyphicon-phone form-control-feedback"></span>
       </div>
 
@@ -82,7 +82,7 @@
         @error('addrs_student'){{$message}}@enderror
       </p>
       <div class="form-group has-feedback">
-        <textarea name="addrs_student" class="form-control" cols="30" rows="5" placeholder="Alamat Lengkap Anda"></textarea>
+        <textarea name="addrs_student" class="form-control" cols="30" rows="5" placeholder="Alamat Lengkap Anda">{{old('addrs_student')}}</textarea>
         <span class="glyphicon glyphicon-home form-control-feedback"></span>
       </div>
 
@@ -121,6 +121,7 @@
             <button type="reset" class="btn btn-primary btn-block btn-flat">Bersihkan</button>
           <div class="checkbox icheck">
             <label>
+              Info Lanjut : 
               {{-- <input type="checkbox"> I agree to the <a href="#">terms</a> --}}
               <p>Syarat dan Ketentuan:</p>
               <ul>

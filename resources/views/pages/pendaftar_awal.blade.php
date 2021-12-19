@@ -12,19 +12,39 @@
             Data Pendaftar Awal
             {{-- <small>Control panel</small> --}}
         </h1>
+        <ol class="breadcrumb">
+            <a href="{{ route('exportExcel') }}" class="btn btn-success btn-sm" title="Export Excel"><i class="fa fa-file-excel-o"></i>  Export Excel</a>
+        </ol>
         </section>
 
         <!-- Main content -->
         <section class="content">
-            @if ($message = Session::get('success'))
+            {{-- @if ($message = Session::get('success'))
                 <div class="alert alert-success" role="alert">
                     {{$message}}
                 </div>
-            @endif
+            @endif --}}
             {{-- table --}}
             <div class="row">
                 <div class="col-xs-12">
                     <div class="box">
+                        <div class="box-header">
+                            <h3 class="box-title">Daftar Pendaftar</h3>
+              
+                            <div class="box-tools">
+                              <div class="input-group input-group-sm hidden-xs" style="width: 250px;">
+                                <form action="" method="GET">
+                                    <input type="search" name="search" class="form-control pull-right" placeholder="Cari Nama">
+                                </form>
+              
+                                <div class="input-group-btn">
+                                    <a href="{{ route('index.pendaftar') }}"  class="btn btn-danger" type="button" title="Refresh page">
+                                        <span class="fa fa-refresh"></span>
+                                    </a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                         <div class="box-body table-responsive no-padding">
                             <table class="table table-hover">
                                 <thead>
@@ -65,8 +85,6 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @php($i = 1)
-
                                     <?php 
                                         // Date Gelombang Khusus
                                         $startDateK = date('Y-m-d', strtotime("12/01/2021"));
@@ -85,9 +103,9 @@
                                         $endDate3 = date('Y-m-d', strtotime("07/31/2022")); 
                                     ?>
 
-                                    @foreach ($pendaftar as $row)
+                                    @foreach ($pendaftar as $index => $row)
                                     <tr>
-                                        <td>{{$i++}}</td>
+                                        <td>{{ $index + $pendaftar->firstItem() }}</td>
                                         <td>{{$row->nm_student}}</td>
                                         <td>{{$row->sch_student}}</td>
                                         <td>{{$row->mjr_student_ft}}|{{$row->mjr_student_snd}}</td>
@@ -111,7 +129,6 @@
                                         <td>
                                             <input data-id="{{$row->id}}" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Sudah" data-off="Belum" {{ $row->status ? 'checked' : ''}}>
                                         </td>
-                                        {{-- {{route('delete.pendaftar', $row->id)}} --}}
                                         <td>
                                             <a href="#" class="btn btn-danger btn-sm delete delete-btn" data-id="{{$row->id}}" data-toggle="tooltip" data-placement="bottom" title="Hapus">
                                                 <i class="fa fa-trash"></i>
@@ -121,6 +138,12 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            <div style="display: block;
+                            margin-left: auto;
+                            margin-right: auto;
+                            width: 10%;">
+                                {{ $pendaftar->links() }}
+                            </div>
                         </div>
                         <!-- /.box-body -->
                     </div>
@@ -227,6 +250,30 @@
 @section('script')
     <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+    <script>
+        $('.delete-btn').click( function(){
+            var pendaftar_id = $(this).attr('data-id');
+            swal({
+                title: "Konfirmasi Penghapusan",
+                text: "Apakah anda ingin menghapus data?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    window.location = "/admin/pendaftar-awal/"+pendaftar_id+""
+                } else {
+                    swal("Proses Penghapusan Dibatalkan");
+                }
+            });
+        });
+    </script>
+    <script>
+        @if(Session::has('success'))
+            toastr.success("{{ Session::get('success') }}")
+        @endif
+    </script>
     <script>
         $(function(){
             $('.toggle-class').change(function(){
