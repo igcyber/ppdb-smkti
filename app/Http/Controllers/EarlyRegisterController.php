@@ -59,16 +59,44 @@ class EarlyRegisterController extends Controller
 
         'addrs_student.required' => "Alamat Lengkap Wajib Diisi",
         ]);
-
-         
-
+    
         $register = EarlyRegister::create($request->all());
+        
+        // Date Gelombang Khusus
+        $startDateK = date('Y-m-d', strtotime("2021-12-01"));
+        $endDateK = date('Y-m-d', strtotime("2022-01-31"));  
+
+        // Date Gelombang Pertama
+        $startDate1 = date('Y-m-d', strtotime("2022-02-01"));
+        $endDate1 = date('Y-m-d', strtotime("2022-03-31")); 
+
+        // Date Gelombang Kedua
+        $startDate2 = date('Y-m-d', strtotime("2022-04-01"));
+        $endDate2 = date('Y-m-d', strtotime("2022-05-31"));
+        
+        // Date Gelombang Ketiga
+        $startDate3 = date('Y-m-d', strtotime("2022-06-01"));
+        $endDate3 = date('Y-m-d', strtotime("2022/07/31")); 
+
 
         // Tanggal Daftar
         $date = Carbon::now();
+        $dateNow = $date->format('Y-m-d'); 
 
-        $register->reg_id = 'PDB'.'-'.$date->format('Y').'-'.$register->id.'-'. str_replace(' ', '', strtoupper(substr($request->nm_student,0,4)));
+        // Periksa Kondisi Daftar Sesuai Tanggal Gelombang Pendaftaran
+        if(($dateNow >=  $startDateK) && ($dateNow <= $endDateK)){
+            $register->reg_id = 'PDB'.'-'.'GK'.'-'.$register->id.'-'. str_replace(' ', '', strtoupper(substr($request->nm_student,0,4)));
+        }elseif(($dateNow >=  $startDate1) && ($dateNow <= $endDate1)){
+            $register->reg_id = 'PDB'.'-'.'G1'.'-'.$register->id.'-'. str_replace(' ', '', strtoupper(substr($request->nm_student,0,4)));
+        }elseif(($dateNow >=  $startDate2) && ($dateNow <= $endDate2)){
+            $register->reg_id = 'PDB'.'-'.'G2'.'-'.$register->id.'-'. str_replace(' ', '', strtoupper(substr($request->nm_student,0,4)));
+        }elseif(($dateNow >=  $startDate3) && ($dateNow <= $endDate3)){
+            $register->reg_id = 'PDB'.'-'.'G3'.'-'.$register->id.'-'. str_replace(' ', '', strtoupper(substr($request->nm_student,0,4)));
+        }else{
+            $register->reg_id = 'PDB'.'-'.'GT'.'-'.$register->id.'-'. str_replace(' ', '', strtoupper(substr($request->nm_student,0,4)));
+        }
 
+        //Simpan
         $register->save();
 
         return redirect()->route('index.pendaftar')->with('success', 'Data Berhasil Di Tambahkan');
@@ -129,6 +157,8 @@ class EarlyRegisterController extends Controller
         
         // Ambil semua request
         $register = EarlyRegister::create($request->all());
+
+        
 
         // Tanggal Daftar
         $date = Carbon::now();

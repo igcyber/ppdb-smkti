@@ -19,12 +19,6 @@
 
         <!-- Main content -->
         <section class="content">
-            {{-- @if ($message = Session::get('success'))
-                <div class="alert alert-success" role="alert">
-                    {{$message}}
-                </div>
-            @endif --}}
-            {{-- table --}}
             <div class="row">
                 <div class="col-xs-12">
                     <div class="box">
@@ -87,20 +81,20 @@
                                 <tbody>
                                     <?php 
                                         // Date Gelombang Khusus
-                                        $startDateK = date('Y-m-d', strtotime("12/01/2021"));
-                                        $endDateK = date('Y-m-d', strtotime("01/31/2022"));  
+                                        $startDateK = date('Y-m-d', strtotime("2021-12-01"));
+                                        $endDateK = date('Y-m-d', strtotime("2022-01-31"));  
 
                                         // Date Gelombang Pertama
-                                        $startDate1 = date('Y-m-d', strtotime("02/01/2022"));
-                                        $endDate1 = date('Y-m-d', strtotime("03/31/2022")); 
+                                        $startDate1 = date('Y-m-d', strtotime("2022-02-01"));
+                                        $endDate1 = date('Y-m-d', strtotime("2022-03-31")); 
 
                                         // Date Gelombang Kedua
-                                        $startDate2 = date('Y-m-d', strtotime("04/01/2022"));
-                                        $endDate2 = date('Y-m-d', strtotime("05/31/2022"));
+                                        $startDate2 = date('Y-m-d', strtotime("2022-04-01"));
+                                        $endDate2 = date('Y-m-d', strtotime("2022-05-31"));
                                         
                                         // Date Gelombang Ketiga
-                                        $startDate3 = date('Y-m-d', strtotime("06/01/2022"));
-                                        $endDate3 = date('Y-m-d', strtotime("07/31/2022")); 
+                                        $startDate3 = date('Y-m-d', strtotime("2022-06-01"));
+                                        $endDate3 = date('Y-m-d', strtotime("2022-07-31")); 
                                     ?>
 
                                     @foreach ($pendaftar as $index => $row)
@@ -112,6 +106,7 @@
                                         <td>{{$row->phn_student}}</td>
                                         <td>{{$row->phn_parent}}</td>
                                         <td>{{$row->addrs_student}}</td>
+                                        <td>{{$row->created_at}}</td>
                                         
                                         <td>
                                             @if (($row->created_at >= $startDateK) && ($row->created_at <= $endDateK))
@@ -123,7 +118,7 @@
                                             @elseif(($row->created_at >= $startDate3) && ($row->created_at <= $endDate3))
                                                 <span class="label label-info">Gelombang Ketiga</span>
                                             @else 
-                                                <span class="label label-danger">Gelombang Sisa</span>
+                                                <span class="label label-danger">Gelombang Terakhir</span>
                                             @endif
                                         </td>
                                         <td>
