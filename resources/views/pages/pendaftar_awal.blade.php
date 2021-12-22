@@ -1,6 +1,7 @@
 @extends('layouts.master')
 @section('bootstrap-toogle')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" ></script>
+    <script src="https://markcell.github.io/jquery-tabledit/assets/js/tabledit.min.js"></script>
 @endsection
 
 @section('content')
@@ -14,7 +15,36 @@
         </h1>
         <ol class="breadcrumb">
             <a href="{{ route('exportExcel') }}" class="btn btn-success btn-sm" title="Export Excel"><i class="fa fa-file-excel-o"></i>  Export Excel</a>
+            <a href="#" class="btn btn-info btn-sm" data-toggle="modal" data-target="#importModal" title="Export Excel"><i class="fa fa-file-excel-o"></i>  Import Excel</a>
         </ol>
+  
+        <!-- Import Excel Modal -->
+        <div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Import Data Dari Excel</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="{{ route('importExcel') }}" method="POST" enctype="multipart/form-data">
+                    @csrf    
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input type="file" name="file" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        
+            </div>
+        </div>
+  
         </section>
 
         <!-- Main content -->
@@ -32,7 +62,7 @@
                                 </form>
               
                                 <div class="input-group-btn">
-                                    <a href="{{ route('index.pendaftar') }}"  class="btn btn-danger" type="button" title="Refresh page">
+                                    <a href="{{ route('index.pendaftar') }}"  class="btn btn-default" type="button" title="Refresh page">
                                         <span class="fa fa-refresh"></span>
                                     </a>
                                 </div>
@@ -40,12 +70,17 @@
                             </div>
                           </div>
                         <div class="box-body table-responsive no-padding">
-                            <table class="table table-hover">
+                            @csrf
+                            <table class="table table-hover"> 
                                 <thead>
                                     <tr>
                                         <th>No
                                             <br>
                                             Urut
+                                        </th>
+                                        <th>
+                                            No <br>
+                                            Registrasi
                                         </th>
                                         <th>Nama <br>
                                             Siswa
@@ -55,15 +90,6 @@
                                         </th>
                                         <th>Pilihan <br>
                                             Jurusan
-                                        </th>
-                                        <th>No. HP  <br>  
-                                            Siswa
-                                        </th>
-                                        <th>No. HP <br>
-                                            Orang Tua/Wali
-                                        </th>
-                                        <th>Alamat <br>
-                                            Lengkap
                                         </th>
                                         <th>
                                             Gelombang <br>
@@ -100,14 +126,10 @@
                                     @foreach ($pendaftar as $index => $row)
                                     <tr>
                                         <td>{{ $index + $pendaftar->firstItem() }}</td>
+                                        <td>{{ $row->reg_id }}</td>
                                         <td>{{$row->nm_student}}</td>
                                         <td>{{$row->sch_student}}</td>
                                         <td>{{$row->mjr_student_ft}}|{{$row->mjr_student_snd}}</td>
-                                        <td>{{$row->phn_student}}</td>
-                                        <td>{{$row->phn_parent}}</td>
-                                        <td>{{$row->addrs_student}}</td>
-                                        <td>{{$row->created_at}}</td>
-                                        
                                         <td>
                                             @if (($row->created_at >= $startDateK) && ($row->created_at <= $endDateK))
                                                 <span class="label label-warning">Gelombang Khusus</span>
@@ -125,6 +147,17 @@
                                             <input data-id="{{$row->id}}" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Sudah" data-off="Belum" {{ $row->status ? 'checked' : ''}}>
                                         </td>
                                         <td>
+                                            <button type="button" value="{{$row->id}}" class="edit_data btn btn-primary btn-sm" data-toggle="tooltip" data-placement="bottom" title="Lihat Detail">
+                                                <i class="fa fa-eye"></i>
+                                            </button>
+
+                                            @if($row->reg_id === null)
+                                            <a href="{{ route('generateID', $row->id) }}"  class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="bottom" title="Generate Reg.ID">
+                                                <i class="fa fa-barcode"></i>
+                                            </a>
+                                            @else
+
+                                            @endif
                                             <a href="#" class="btn btn-danger btn-sm delete delete-btn" data-id="{{$row->id}}" data-toggle="tooltip" data-placement="bottom" title="Hapus">
                                                 <i class="fa fa-trash"></i>
                                             </a>
@@ -134,10 +167,11 @@
                                 </tbody>
                             </table>
                             <div style="display: block;
+                            padding-left: 5%;
                             margin-left: auto;
                             margin-right: auto;
-                            width: 10%;">
-                                {{ $pendaftar->links() }}
+                            width: 100%;">
+                                {{ $pendaftar->links('partials.pagination')}}
                             </div>
                         </div>
                         <!-- /.box-body -->
@@ -158,9 +192,13 @@
                         <form action="{{ route('store.pendaftar') }}" method="POST">
                             @csrf
                             <div class="box-body">
+
+                                <div id="success_message" role="alert"></div>
                                 
+                                <input type="hidden" name="reg_date" value="<?php echo date('Y-m-d'); ?>">
+
                                 <div class="form-group col-md-6">
-                                    <label for="nameInput" >Nama Siswa</label>
+                                    <label >Nama Siswa</label>
                                     <span  class="text-danger">
                                          @error('nm_student')  (  {{$message}}  )@enderror
                                     </span>
@@ -239,12 +277,109 @@
                     
         </section>
         <!-- /.content -->
+
+        {{-- Show Modal --}}
+        <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Detail Pendaftar</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="#" method="POST">
+                    @csrf    
+                    <div class="modal-body">
+
+                        {{-- Id Data --}}
+                        <input type="hidden" id="edit_id">
+
+                        <div class="form-group col-md-12">
+                            <label >Nomor Registrasi</label>
+                            <input type="text" id="edit_noreg" class="name form-control" disabled>
+                        </div>
+                        <div class="form-group col-md-8">
+                            <label >Nama Siswa</label>
+                            <input type="text" id="edit_nm" class="name form-control">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label >Asal Sekolah</label>
+                            <input type="text" id="edit_sch" class="name form-control">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label >Jurusan Utama</label>
+                            <input type="text" id="edit_j1" class="name form-control">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label >Jurusan Cadangan</label>
+                            <input type="text" id="edit_j2" class="name form-control">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label >No. HP Siswa</label>
+                            <input type="text" id="edit_no1" class="name form-control">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label >No. HP Orang Tua/Wali</label>
+                            <input type="text" id="edit_no2" class="name form-control">
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label >Alamat</label>
+                            <textarea name="" id="edit_add" cols="2" rows="5" class="form-control"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary update-btn">Perbarui</button> --}}
+                    </div>
+                </form>
+            </div>
+        
+            </div>
+        </div>
     </div>
     <!-- /.content-wrapper -->
 @endsection
 @section('script')
     <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+    {{-- Show data Script --}}
+    <script>
+        $(document).ready(function(){
+            $(document).on('click', '.edit_data', function (e){
+                e.preventDefault();
+                var pendaftar_id = $(this).attr('value');
+                $('#editModal').modal('show');
+                $.ajax({
+                    type: "GET",
+                    url: "/admin/pendaftar-awal/edit/"+pendaftar_id,
+                    success: function(response){
+                        console.log(response)
+                        if(response.status == 404)
+                        {
+                            $('#success_message').html("");
+                            $('#success_message').addClass("alert alert-danger");
+                            $('#success_message').text(response.message);
+                        }
+                        else
+                        {
+                            $('#edit_id').val(pendaftar_id);
+                            $('#edit_noreg').val(response.pendaftar.reg_id);
+                            $('#edit_nm').val(response.pendaftar.nm_student);
+                            $('#edit_sch').val(response.pendaftar.sch_student);
+                            $('#edit_j1').val(response.pendaftar.mjr_student_ft);
+                            $('#edit_j2').val(response.pendaftar.mjr_student_snd);
+                            $('#edit_no1').val(response.pendaftar.phn_student);
+                            $('#edit_no2').val(response.pendaftar.phn_parent);
+                            $('#edit_add').val(response.pendaftar.addrs_student);
+                        }
+                    }
+                });
+            });
+        });
+      
+    </script>
+    {{-- Swal Script --}}
     <script>
         $('.delete-btn').click( function(){
             var pendaftar_id = $(this).attr('data-id');
@@ -264,11 +399,13 @@
             });
         });
     </script>
+    {{-- Toastr Script --}}
     <script>
         @if(Session::has('success'))
             toastr.success("{{ Session::get('success') }}")
         @endif
     </script>
+    {{-- Toggle Change Status Button Script --}}
     <script>
         $(function(){
             $('.toggle-class').change(function(){

@@ -24,6 +24,7 @@ class CreateEarlyRegistersTable extends Migration
             $table->text('addrs_student');
             $table->boolean('status')->nullable()->default(0);
             $table->string('reg_id', 15)->nullable();
+            $table->date('reg_date');
             $table->timestamps();
         });
     }

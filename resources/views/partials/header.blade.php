@@ -54,8 +54,8 @@
             <li class="user-header">
               <img src="{{ asset('assets/images/user.png') }}" class="img-circle" alt="User Image">
               <p>
-               Admin Smktiairlangga
-              <small>Member since desember. 2021 </small>
+              {{ strtoupper(Auth::user()->name) }}
+              <small>PPDB <?php echo date('Y'); ?> </small>
               </p>
             </li>
             <!-- Menu Footer-->

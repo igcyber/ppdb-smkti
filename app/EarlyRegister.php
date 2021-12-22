@@ -19,5 +19,6 @@ class EarlyRegister extends Model
         'addrs_student',
         'status',
         'reg_id',
+        'reg_date'
     ];
 }

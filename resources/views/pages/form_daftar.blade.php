@@ -44,11 +44,13 @@
         </div>
     @endif
     <form action="{{ route('siswa.pendaftar') }}" method="POST">
-        @csrf
+      @csrf
 
-        <p  class="text-danger">
-          @error('nm_student'){{$message}}@enderror
-        </p>
+      <input type="hidden" name="reg_date" value="<?php echo date('Y-m-d'); ?>">
+
+      <p  class="text-danger">
+        @error('nm_student'){{$message}}@enderror
+      </p>
       <div class="form-group has-feedback">
         <input type="text" class="form-control" placeholder="Nama Lengkap Anda" name="nm_student" value="{{ old('nm_student') }}">
         <span class="glyphicon glyphicon-user form-control-feedback"></span>

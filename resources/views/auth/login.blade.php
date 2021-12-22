@@ -16,19 +16,8 @@
     <link rel="stylesheet" href="{{ asset('assets/dist/css/AdminLTE.min.css')}}">
     {{-- Favicon --}}
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/images/logo_smktia.png')}}">
-    <!-- AdminLTE Skins. Choose a skin from the css/skins
-        folder instead of downloading all of them to reduce the load. -->
+    {{-- Theme Skin --}}
     <link rel="stylesheet" href="{{ asset('assets/dist/css/skins/_all-skins.min.css')}}">
-    <!-- Morris chart -->
-    <link rel="stylesheet" href="{{ asset('assets/bower_components/morris.js/morris.css')}}">
-    <!-- jvectormap -->
-    <link rel="stylesheet" href="{{ asset('assets/bower_components/jvectormap/jquery-jvectormap.css')}}">
-    <!-- Date Picker -->
-    <link rel="stylesheet" href="{{ asset('assets/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css')}}">
-    <!-- Daterange picker -->
-    <link rel="stylesheet" href="{{ asset('assets/bower_components/bootstrap-daterangepicker/daterangepicker.css')}}">
-    <!-- bootstrap wysihtml5 - text editor -->
-    <link rel="stylesheet" href="{{ asset('assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css')}}">
     <!-- Google Font -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
@@ -49,12 +38,22 @@
             @csrf
                 <div class="form-group has-feedback">
                     <input type="email" class="form-control" placeholder="Email Anda" name="email">
-                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                    @error('email')
+                    <span class="text-danger" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
                 </div>
+
                 <div class="form-group has-feedback">
                     <input type="password" class="form-control" placeholder="Password" name="password">
-                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                    @error('password')
+                    <span class="text-danger" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
                 </div>
+              
                 <div class="row">
                     <div class="col-xs-12 pull-right">
                     <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
