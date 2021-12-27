@@ -123,7 +123,7 @@
             <button type="reset" class="btn btn-primary btn-block btn-flat">Bersihkan</button>
           <div class="checkbox icheck">
             <label>
-              Info Lanjut : 
+              Info Lanjut : 0812-5550-102 (Call Centre )
               {{-- <input type="checkbox"> I agree to the <a href="#">terms</a> --}}
               <p>Syarat dan Ketentuan:</p>
               <ul>
