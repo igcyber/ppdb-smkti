@@ -29,7 +29,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li class="active"><a href="{{ url('/admin/pendaftar-awal') }}"><i class="fa fa-circle-o"></i>Pendaftar Awal</a></li>
+            <li class="active"><a href="{{ route('index.pendaftar') }}"><i class="fa fa-circle-o"></i>Pendaftar Awal</a></li>
             <li><a href="index2.html"><i class="fa fa-circle-o"></i>Pendaftar Ulang</a></li>
           </ul>
         </li>

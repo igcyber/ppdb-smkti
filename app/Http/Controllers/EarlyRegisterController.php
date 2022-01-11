@@ -26,6 +26,16 @@ class EarlyRegisterController extends Controller
         return view('pages.pendaftar_awal', compact('pendaftar'));
     }
 
+    public function searchDate(Request $request)
+    {   
+        if($request->has('from')){
+            $pendaftar = EarlyRegister::where('reg_date', '>=', $request->from)->where('reg_date', '<=', $request->to)->orderBy('id', 'DESC')->paginate(5);
+        }else{
+            $pendaftar = EarlyRegister::orderBy('id','DESC')->paginate(5);
+        }
+        return view('pages.pendaftar_awal', compact('pendaftar'));
+    }
+
     //update registration id
     public function generate($id)
     {
@@ -54,7 +64,7 @@ class EarlyRegisterController extends Controller
         
         // Date Gelombang Ketiga
         $startDate3 = date('Y-m-d', strtotime("2022-06-01"));
-        $endDate3 = date('Y-m-d', strtotime("2022/07/31")); 
+        $endDate3 = date('Y-m-d', strtotime("2022-07-31")); 
 
         // Tanggal Daftar
         $reg_date = $request->reg_date;
@@ -190,6 +200,11 @@ class EarlyRegisterController extends Controller
     public function form()
     {
         return view('pages.form_daftar');
+    }
+
+    public function loginForm()
+    {
+        return view('auth.login');
     }
 
     public function register(Request $request)

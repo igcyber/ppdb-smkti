@@ -9,46 +9,95 @@
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-        <h1>
-            Data Pendaftar Awal
-            {{-- <small>Control panel</small> --}}
-        </h1>
-        <ol class="breadcrumb">
-            <a href="{{ route('exportExcel') }}" class="btn btn-success btn-sm" title="Export Excel"><i class="fa fa-file-excel-o"></i>  Export Excel</a>
-            <a href="#" class="btn btn-info btn-sm" data-toggle="modal" data-target="#importModal" title="Export Excel"><i class="fa fa-file-excel-o"></i>  Import Excel</a>
-        </ol>
-  
-        <!-- Import Excel Modal -->
-        <div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Import Data Dari Excel</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form action="{{ route('importExcel') }}" method="POST" enctype="multipart/form-data">
-                    @csrf    
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <input type="file" name="file" class="form-control" required>
+            <h1>
+                Data Pendaftar Awal
+                {{-- <small>Control panel</small> --}}
+            </h1>
+            <ol class="breadcrumb">
+                <a href="{{ route('exportExcel') }}" class="btn btn-success btn-sm" title="Export Excel"><i class="fa fa-file-excel-o"></i>  Export Excel</a>
+                <a href="#" class="btn btn-info btn-sm" data-toggle="modal" data-target="#importModal" title="Export Excel"><i class="fa fa-file-excel-o"></i>  Import Excel</a>
+            </ol>
+    
+            <!-- Import Excel Modal -->
+            <div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Import Data Dari Excel</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form action="{{ route('importExcel') }}" method="POST" enctype="multipart/form-data">
+                        @csrf    
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <input type="file" name="file" class="form-control" required>
+                            </div>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
-                    </div>
-                </form>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            
+                </div>
             </div>
-        
-            </div>
-        </div>
-  
         </section>
 
         <!-- Main content -->
         <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box">
+                        <div class="box-header">
+                            <h4 class="box-title">
+                                Lihat Berdasarkan Tanggal
+                            </h4>
+                            <div class="box-body">
+                                <form action="{{ route('searchDate')}}" method="GET">
+                                    @csrf
+                                    <div class="form-group col-md-6">
+                                    
+                                        <label>Tanggal Awal Gelombang</label>
+                        
+                                        <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        <input type="date" name="from" class="form-control pull-right">
+                                        </div>
+                                        <!-- /.input group -->
+                    
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                    
+                                        <label>Tanggal Akhir Gelombang</label>
+                        
+                                        <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        <input type="date" name="to" class="form-control pull-right">
+                                        </div>
+                                        <!-- /.input group -->
+                    
+                                    </div>
+                                    <div class="input-group-btn">
+                                        <input type="submit" value="Lihat Data" class="btn btn-sm btn-success">
+                                        <a href="{{ route('index.pendaftar') }}"  class="btn btn-default btn-sm" type="button" title="Refresh page">
+                                            <span class="fa fa-refresh"></span>
+                                        </a>
+                                    </div>
+                                    
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="row">
                 <div class="col-xs-12">
                     <div class="box">
@@ -58,7 +107,8 @@
                             <div class="box-tools">
                               <div class="input-group input-group-sm hidden-xs" style="width: 250px;">
                                 <form action="" method="GET">
-                                    <input type="search" name="search" class="form-control pull-right" placeholder="Cari Nama">
+                                    @csrf
+                                    <input type="search" name="search" class="form-control pull-right" placeholder="Cari Nama (Tekan Enter Setelah Mengetikan Nama)">
                                 </form>
               
                                 <div class="input-group-btn">
@@ -68,9 +118,10 @@
                                 </div>
                               </div>
                             </div>
-                          </div>
+                        </div>
+
                         <div class="box-body table-responsive no-padding">
-                            @csrf
+                    
                             <table class="table table-hover"> 
                                 <thead>
                                     <tr>
@@ -210,7 +261,7 @@
                                     <span  class="text-danger">
                                         @error('sch_student')  (  {{$message}}  )@enderror
                                    </span>
-                                    <input type="text" class="form-control" name="sch_student" id="sekolahInput" placeholder="Isikan Asal Sekolah Siswa" value="{{ old('sch_student') }}">
+                                    <input type="text" class="form-control" name="sch_student" id="sekolahInput" placeholder="Isikan Asal Sekolah Siswa (SMP/MTs)" value="{{ old('sch_student') }}">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="noInput">No. HP Siswa</label>
@@ -352,7 +403,7 @@
                 $('#editModal').modal('show');
                 $.ajax({
                     type: "GET",
-                    url: "/admin/pendaftar-awal/edit/"+pendaftar_id,
+                    url: "/manajemen/daftar-awal/edit/"+pendaftar_id,
                     success: function(response){
                         console.log(response)
                         if(response.status == 404)
@@ -392,7 +443,7 @@
             })
             .then((willDelete) => {
                 if (willDelete) {
-                    window.location = "/admin/pendaftar-awal/"+pendaftar_id+""
+                    window.location = "/manajemen/daftar-awal/"+pendaftar_id+""
                 } else {
                     swal("Proses Penghapusan Dibatalkan");
                 }

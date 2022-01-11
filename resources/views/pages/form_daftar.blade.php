@@ -31,8 +31,10 @@
     margin-right: auto;
     width: 40%;">
   <div class="register-logo">
-    <h4>Aplikasi <b>Pendaftaran Peserta Didik Baru</b></h4>
-    {{-- <h3>SMKS TI Airlangga Samarinda</h3> --}}
+    <h3><b>Aplikasi</b></h3>
+    <h4><b>Pendaftaran Peserta Didik Baru</b></h4>
+    <h4><b>Tahun 2022/2023</b></h4>
+    
   </div>
 
   <div class="register-box-body">
@@ -60,7 +62,7 @@
         @error('sch_student'){{$message}}@enderror
       </p>
       <div class="form-group has-feedback">
-        <input type="text" class="form-control" name="sch_student" placeholder="Asal Sekolah(SMP) Anda"  value="{{ old('sch_student') }}">
+        <input type="text" class="form-control" name="sch_student" placeholder="Asal Sekolah(SMP/MTs) Anda"  value="{{ old('sch_student') }}">
         <span class="glyphicon glyphicon-education form-control-feedback"></span>
       </div>
 
@@ -147,14 +149,5 @@
 <script src="{{ asset('assets/bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
 <!-- iCheck -->
 <script src="{{ asset('assets/plugins/iCheck/icheck.min.js')}}"></script>
-<script>
-  $(function () {
-    $('input').iCheck({
-      checkboxClass: 'icheckbox_square-blue',
-      radioClass: 'iradio_square-blue',
-      increaseArea: '20%' /* optional */
-    });
-  });
-</script>
 </body>
 </html>
