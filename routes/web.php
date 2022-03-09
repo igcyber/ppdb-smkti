@@ -33,13 +33,22 @@ Route::get('/', 'EarlyRegisterController@form')->name('form');
 
 Route::post('pendaftar-awal/register', 'EarlyRegisterController@register')->name('siswa.pendaftar');
 
+Route::get('/manajemen/daftar-ulang', 'ReRegisterController@index')->name('index.daftar');
+
 Route::get('/changeStatus', 'EarlyRegisterController@change')->name('changeStatus');
+
+
+Route::get('/followUp', 'EarlyRegisterController@followUp')->name('followUp');
 
 Route::get('/export-excel', 'EarlyRegisterController@exportExcel')->name('exportExcel');
 
 Route::post('/import-excel', 'EarlyRegisterController@importExcel')->name('importExcel');
 
 Route::get('/searchDate', 'EarlyRegisterController@searchDate')->name('searchDate');
+
+
+//CUSTOM LOGIN FOR CALON PENDAFTAR
+Route::get('/login-profil', 'CustomAuthController@login')->name('login.custom');
 
 
 

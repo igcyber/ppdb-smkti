@@ -130,17 +130,11 @@
                                             Urut
                                         </th>
                                         <th>
-                                            No <br>
-                                            Registrasi
+                                            Tanggal <br>
+                                            Daftar
                                         </th>
                                         <th>Nama <br>
                                             Siswa
-                                        </th>
-                                        <th>Asal <br>
-                                            Sekolah
-                                        </th>
-                                        <th>Pilihan <br>
-                                            Jurusan
                                         </th>
                                         <th>
                                             Gelombang <br>
@@ -149,6 +143,10 @@
                                         <th>
                                             Status <br>
                                             <span>Daftar Ulang</span>
+                                        </th>
+                                        <th>
+                                            Status <br>
+                                            <span>Follow Up</span>
                                         </th>
                                         <th>
                                             Pilihan <br>
@@ -177,10 +175,8 @@
                                     @foreach ($pendaftar as $index => $row)
                                     <tr>
                                         <td>{{ $index + $pendaftar->firstItem() }}</td>
-                                        <td>{{ $row->reg_id }}</td>
+                                        <td>{{ date('d-M-Y',strtotime($row->reg_date)) }}</td>
                                         <td>{{$row->nm_student}}</td>
-                                        <td>{{$row->sch_student}}</td>
-                                        <td>{{$row->mjr_student_ft}}|{{$row->mjr_student_snd}}</td>
                                         <td>
                                             @if (($row->created_at >= $startDateK) && ($row->created_at <= $endDateK))
                                                 <span class="label label-warning">Gelombang Khusus</span>
@@ -196,6 +192,9 @@
                                         </td>
                                         <td>
                                             <input data-id="{{$row->id}}" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Sudah" data-off="Belum" {{ $row->status ? 'checked' : ''}}>
+                                        </td>
+                                        <td>
+                                            <input data-id="{{$row->id}}" class="toggle-class-1" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Sudah" data-off="Belum" {{ $row->stts_followup ? 'checked' : ''}}>
                                         </td>
                                         <td>
                                             <button type="button" value="{{$row->id}}" class="edit_data btn btn-primary btn-sm" data-toggle="tooltip" data-placement="bottom" title="Lihat Detail">
@@ -339,44 +338,39 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="#" method="POST">
+                <form action="#" method="#">
                     @csrf    
                     <div class="modal-body">
 
                         {{-- Id Data --}}
                         <input type="hidden" id="edit_id">
-
                         <div class="form-group col-md-12">
                             <label >Nomor Registrasi</label>
                             <input type="text" id="edit_noreg" class="name form-control" disabled>
                         </div>
-                        <div class="form-group col-md-8">
-                            <label >Nama Siswa</label>
-                            <input type="text" id="edit_nm" class="name form-control">
-                        </div>
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-12">
                             <label >Asal Sekolah</label>
-                            <input type="text" id="edit_sch" class="name form-control">
+                            <input type="text" id="edit_sch" class="name form-control" disabled>
                         </div>
                         <div class="form-group col-md-6">
                             <label >Jurusan Utama</label>
-                            <input type="text" id="edit_j1" class="name form-control">
+                            <input type="text" id="edit_j1" class="name form-control" disabled>
                         </div>
                         <div class="form-group col-md-6">
                             <label >Jurusan Cadangan</label>
-                            <input type="text" id="edit_j2" class="name form-control">
+                            <input type="text" id="edit_j2" class="name form-control" disabled>
                         </div>
                         <div class="form-group col-md-6">
                             <label >No. HP Siswa</label>
-                            <input type="text" id="edit_no1" class="name form-control">
+                            <input type="text" id="edit_no1" class="name form-control" disabled>
                         </div>
                         <div class="form-group col-md-6">
                             <label >No. HP Orang Tua/Wali</label>
-                            <input type="text" id="edit_no2" class="name form-control">
+                            <input type="text" id="edit_no2" class="name form-control" disabled>
                         </div>
                         <div class="form-group col-md-12">
                             <label >Alamat</label>
-                            <textarea name="" id="edit_add" cols="2" rows="5" class="form-control"></textarea>
+                            <textarea name="" id="edit_add" cols="2" rows="5" class="form-control" disabled></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -416,6 +410,7 @@
                         {
                             $('#edit_id').val(pendaftar_id);
                             $('#edit_noreg').val(response.pendaftar.reg_id);
+                            $('#reg_date').val(response.pendaftar.reg_date);
                             $('#edit_nm').val(response.pendaftar.nm_student);
                             $('#edit_sch').val(response.pendaftar.sch_student);
                             $('#edit_j1').val(response.pendaftar.mjr_student_ft);
@@ -456,6 +451,43 @@
             toastr.success("{{ Session::get('success') }}")
         @endif
     </script>
+    {{-- Toggle Change Status Daftar Ulang Script --}}
+    <script>
+        $(function(){
+            $('.toggle-class').change(function(){
+                var status = $(this).prop('checked') == true ? 1 : 0;
+                var id = $(this).data('id');
+                $.ajax({
+                    type:"GET",
+                    dataType: "json",
+                    url: "{{ route('changeStatus') }}",
+                    data: {'status': status, 'id': id},
+                    success: function(data){
+                        console.log(data.success)
+                    }
+                });
+            });
+        });
+    </script>
+    {{-- Toggle Change Status Follow Up Script --}}
+    <script>
+        $(function(){
+            $('.toggle-class-1').change(function(){
+                var stts_followup = $(this).prop('checked') == true ? 1 : 0;
+                var id = $(this).data('id');
+                $.ajax({
+                    type:"GET",
+                    dataType: "json",
+                    url: "{{ route('followUp') }}",
+                    data: {'stts_followup': stts_followup, 'id': id},
+                    success: function(data){
+                        console.log(data.success)
+                    }
+                });
+            });
+        });
+    </script>
+
     {{-- Toggle Change Status Button Script --}}
     <script>
         $(function(){

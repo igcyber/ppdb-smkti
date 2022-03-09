@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>SMKS TI Airlangga | Pendaftaran Awal</title>
   <!-- Tell the browser to be responsive to screen width -->
-  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=yes" name="viewport">
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <!-- Bootstrap 3.3.7 -->
@@ -18,6 +18,8 @@
   <link rel="stylesheet" href="{{ asset('assets/bower_components/Ionicons/css/ionicons.min.css')}}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('assets/dist/css/AdminLTE.min.css')}}">
+  <!-- Custom style -->
+  <link rel="stylesheet" href="{{ asset('assets/dist/css/style.css')}}">
   <!-- iCheck -->
   <link rel="stylesheet" href="{{ asset('assets/plugins/iCheck/square/blue.css')}}">
   <!-- Google Font -->
@@ -125,7 +127,7 @@
             <button type="reset" class="btn btn-primary btn-block btn-flat">Bersihkan</button>
           <div class="checkbox icheck">
             <label>
-              Info Lanjut : 0812-5550-102 (Call Centre )
+              Info Lanjut : 0811-5555-214 (Call Centre )
               {{-- <input type="checkbox"> I agree to the <a href="#">terms</a> --}}
               <p>Syarat dan Ketentuan:</p>
               <ul>

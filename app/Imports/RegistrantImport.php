@@ -23,8 +23,9 @@ class RegistrantImport implements ToModel
             'phn_parent' => $row[6],
             'addrs_student' => $row[7],
             'status' => $row[8],
-            'reg_id' => $row[9],
-            'reg_date' => $row[10]
+            'status' => $row[9],
+            'reg_id' => $row[10],
+            'reg_date' => $row[11]
         ]);
     }
 }

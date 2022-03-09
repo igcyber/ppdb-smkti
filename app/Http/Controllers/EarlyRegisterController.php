@@ -197,6 +197,13 @@ class EarlyRegisterController extends Controller
         $pendaftar->save();
     }
 
+    public function followUp(Request $request)
+    {
+        $pendaftar = EarlyRegister::find($request->id);
+        $pendaftar->stts_followup = $request->stts_followup;
+        $pendaftar->save();
+    }
+
     public function form()
     {
         return view('pages.form_daftar');
