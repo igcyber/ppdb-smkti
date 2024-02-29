@@ -47,9 +47,5 @@ Route::post('/import-excel', 'EarlyRegisterController@importExcel')->name('impor
 Route::get('/searchDate', 'EarlyRegisterController@searchDate')->name('searchDate');
 
 
-//CUSTOM LOGIN FOR CALON PENDAFTAR
-Route::get('/login-profil', 'CustomAuthController@login')->name('login.custom');
-
-
-
-
+// CALON SISWA LOGIN
+Route::get('/siswa-login', 'Auth\SiswaLoginController@showLoginForm')->name('siswa_login');
